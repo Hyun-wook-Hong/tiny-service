@@ -21,10 +21,14 @@ router.get('/', async (req, res) => {
 // Get a specific post
 router.get('/:id', async (req, res) => {
   try {
-    console.log('GET: View :id post.');
+    let mPostId = req.params.id;
+    console.log(`GET: View :${mPostId} post.`);
+
     const connection = await connect(dbConfig);
+
     let request = new Request(connection);
     request.input('id', req.params.id);
+
     let result = await request.query(queries.getPostByIdQuery);
     res.json(result.recordset);
   } catch (err) {
